@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>What's Next — Series 1 · ChronoAI</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#06060e;--s1:rgba(255,255,255,.04);--s2:rgba(255,255,255,.07);
+  --bd:rgba(255,255,255,.09);
+  --amber:#F59E0B;--adim:rgba(245,158,11,.12);
+  --blue:#38BDF8;--bdim:rgba(56,189,248,.10);
+  --violet:#A78BFA;--vdim:rgba(167,139,250,.10);
+  --green:#34D399;--gdim:rgba(52,211,153,.10);
+  --text:#fff;--muted:#9CA3AF;--sub:#4B5563;
+}
+html,body{height:100%;width:100%;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow:hidden}
+
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px);
+  background-size:60px 60px}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 600px 420px at 5% 90%,rgba(245,158,11,.06) 0%,transparent 70%),
+  radial-gradient(ellipse 500px 360px at 92% 8%,rgba(56,189,248,.05) 0%,transparent 70%),
+  radial-gradient(ellipse 400px 300px at 50% 50%,rgba(167,139,250,.035) 0%,transparent 70%)}
+
+/* Lang */
+body:not(.zh) .zh{display:none!important}
+body.zh .en{display:none!important}
+.lang-toggle{position:fixed;top:18px;right:24px;z-index:100;display:flex;gap:2px;background:rgba(255,255,255,.05);border:1px solid var(--bd);border-radius:100px;padding:3px;backdrop-filter:blur(12px)}
+.lb{padding:4px 12px;border-radius:100px;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;background:transparent;color:var(--muted);transition:all .2s}
+.lb.active{background:var(--amber);color:#000}
+
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--amber),var(--blue),var(--violet));transition:width .4s ease;z-index:200}
+
+/* Deck */
+.deck{width:100vw;height:100vh;position:relative;z-index:1}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:48px 64px 64px;opacity:0;pointer-events:none;transition:opacity .4s ease,transform .4s ease;transform:translateX(24px);overflow-y:auto}
+.slide.active{opacity:1;pointer-events:all;transform:translateX(0)}
+.slide.exit{opacity:0;transform:translateX(-24px)}
+.slide.active .an{animation:up .5s ease forwards;opacity:0}
+.slide.active .an:nth-child(1){animation-delay:.04s}
+.slide.active .an:nth-child(2){animation-delay:.10s}
+.slide.active .an:nth-child(3){animation-delay:.16s}
+.slide.active .an:nth-child(4){animation-delay:.22s}
+.slide.active .an:nth-child(5){animation-delay:.28s}
+.slide.active .an:nth-child(6){animation-delay:.34s}
+.slide.active .an:nth-child(7){animation-delay:.40s}
+.slide.active .an:nth-child(8){animation-delay:.46s}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.slide-lbl{position:absolute;top:20px;left:64px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+
+/* Typography */
+h1{font-size:clamp(42px,5vw,68px);font-weight:900;line-height:.96;letter-spacing:-.04em}
+h2{font-size:clamp(24px,3vw,36px);font-weight:900;line-height:1.05;letter-spacing:-.02em}
+h3{font-size:16px;font-weight:800;letter-spacing:-.01em}
+.grad-a{background:linear-gradient(90deg,#F59E0B,#FB923C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.grad-b{background:linear-gradient(90deg,#38BDF8,#818CF8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.grad-v{background:linear-gradient(90deg,#A78BFA,#F472B6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tag{display:inline-flex;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:.04em;background:var(--adim);color:var(--amber);border:1px solid rgba(245,158,11,.25)}
+.sec-hd{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.body{font-size:13px;color:var(--muted);line-height:1.75;max-width:520px}
+.body strong{color:#fff;font-weight:600}
+
+/* Slide 1 layout */
+.s1-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:start;width:100%}
+.vision-card{background:var(--s1);border:1px solid var(--bd);border-radius:14px;padding:20px 22px}
+.vision-card.amber{border-top:2px solid var(--amber);background:linear-gradient(160deg,rgba(245,158,11,.06) 0%,transparent 50%)}
+.vision-card.blue{border-top:2px solid var(--blue);background:linear-gradient(160deg,rgba(56,189,248,.05) 0%,transparent 50%)}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.stat{background:var(--s1);border:1px solid var(--bd);border-radius:11px;padding:14px 16px;text-align:center}
+.stat .num{font-size:32px;font-weight:900;letter-spacing:-.02em}
+.stat .lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.ep-list{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.ep-item{display:flex;gap:10px;align-items:baseline;font-size:12px;color:var(--muted);line-height:1.5}
+.ep-num{font-weight:800;font-size:11px;color:var(--amber);flex-shrink:0;width:16px}
+
+/* Slide 2 layout */
+.s2-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;width:100%}
+.s2-left{display:flex;flex-direction:column;gap:12px}
+.speaker-card{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:14px 16px}
+.speaker-card.amber-l{border-left:3px solid var(--amber)}
+.speaker-card.blue-l{border-left:3px solid var(--blue)}
+.speaker-card.violet-l{border-left:3px solid var(--violet)}
+.sp-name{font-size:13px;font-weight:800;color:#fff;margin-bottom:2px}
+.sp-org{font-size:10px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.sp-topic{font-size:12px;font-weight:700;color:var(--amber);margin-bottom:4px}
+.sp-desc{font-size:11px;color:var(--muted);line-height:1.6}
+
+.space-card{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:14px 16px}
+.space-card.amber-t{border-top:2px solid var(--amber)}
+.space-card.blue-t{border-top:2px solid var(--blue)}
+.space-card.violet-t{border-top:2px solid var(--violet)}
+.space-emoji{font-size:18px;margin-bottom:4px}
+.space-name{font-size:13px;font-weight:800;margin-bottom:2px}
+.space-room{font-size:10px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.space-desc{font-size:11px;color:var(--muted);line-height:1.55}
+.space-tag{display:inline-block;margin-top:6px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px}
+.space-tag.at{background:var(--adim);color:var(--amber)}
+.space-tag.bt{background:var(--bdim);color:var(--blue)}
+.space-tag.vt{background:var(--vdim);color:var(--violet)}
+
+.agenda-strip{display:flex;flex-direction:column;gap:6px}
+.ag-row{display:flex;gap:12px;align-items:baseline;font-size:12px}
+.ag-time{font-weight:700;color:var(--amber);flex-shrink:0;width:88px;text-align:right}
+.ag-what{color:var(--muted);line-height:1.45}
+.ag-what strong{color:#fff;font-weight:600}
+
+/* Slide 3 layout */
+.s3-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:start;width:100%}
+.tl{position:relative;padding-left:24px}
+.tl::before{content:'';position:absolute;left:6px;top:4px;bottom:4px;width:2px;background:linear-gradient(180deg,var(--amber),var(--blue),var(--violet));border-radius:2px}
+.tl-item{position:relative;margin-bottom:18px}
+.tl-item:last-child{margin-bottom:0}
+.tl-dot{position:absolute;left:-24px;top:3px;width:14px;height:14px;border-radius:50%;border:2px solid var(--amber);background:var(--bg)}
+.tl-item:nth-child(2) .tl-dot{border-color:var(--blue)}
+.tl-item:nth-child(3) .tl-dot{border-color:var(--blue)}
+.tl-item:nth-child(4) .tl-dot{border-color:var(--violet)}
+.tl-item.done .tl-dot{background:var(--amber);border-color:var(--amber)}
+.tl-date{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:3px}
+.tl-item:nth-child(2) .tl-date,.tl-item:nth-child(3) .tl-date{color:var(--blue)}
+.tl-item:nth-child(4) .tl-date{color:var(--violet)}
+.tl-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.tl-desc{font-size:11px;color:var(--muted);line-height:1.55}
+
+.channel-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.ch-card{background:var(--s1);border:1px solid var(--bd);border-radius:11px;padding:12px 14px;text-align:center}
+.ch-card .ch-icon{font-size:22px;margin-bottom:4px}
+.ch-card .ch-name{font-size:12px;font-weight:700;color:#fff;margin-bottom:2px}
+.ch-card .ch-desc{font-size:10px;color:var(--muted);line-height:1.5}
+
+.roadmap-strip{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.rm-card{display:flex;gap:10px;align-items:center;background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:10px 14px}
+.rm-ep{font-size:11px;font-weight:800;color:var(--amber);flex-shrink:0;width:22px}
+.rm-title{font-size:12px;font-weight:600;color:var(--muted);line-height:1.4}
+
+/* Nav */
+.nav{position:fixed;bottom:20px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:18px;z-index:100}
+.nb{width:34px;height:34px;border-radius:50%;border:1px solid var(--bd);background:var(--s2);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:12px}
+.nb:hover{border-color:var(--amber);color:var(--amber)}
+.nb:disabled{opacity:.2;cursor:default}
+.dots{display:flex;gap:6px;align-items:center}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--sub);transition:all .25s;cursor:pointer}
+.dot.active{width:20px;border-radius:3px;background:var(--amber)}
+
+@media(max-width:900px){
+  .slide{padding:54px 20px 64px;justify-content:flex-start}
+  .slide-lbl{left:20px}
+  .s1-grid,.s2-grid,.s3-grid{grid-template-columns:1fr;gap:20px}
+  .stat-row,.channel-grid{grid-template-columns:1fr 1fr}
+  .lang-toggle{top:12px;right:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="prog"></div>
+<div class="lang-toggle">
+  <button class="lb active" id="btn-en" onclick="setLang('en')">EN</button>
+  <button class="lb" id="btn-zh" onclick="setLang('zh')">中文</button>
+</div>
+
+<div class="deck">
+
+<!-- ═══════════════════════════════════
+     SLIDE 1 · THE VISION
+═══════════════════════════════════ -->
+<div class="slide active" id="s0">
+  <div class="slide-lbl"><span class="en">01 / 03 · The Vision</span><span class="zh">01 / 03 · 愿景</span></div>
+
+  <div class="s1-grid">
+    <div>
+      <div class="an" style="margin-bottom:10px">
+        <span class="tag en">ChronoAI · Monthly Series</span>
+        <span class="tag zh">ChronoAI · 月度系列活动</span>
+      </div>
+
+      <div class="an" style="margin-bottom:16px">
+        <h1><span style="color:#fff">"What's</span><br/><span class="grad-a">Next?"</span></h1>
+      </div>
+
+      <div class="an" style="margin-bottom:18px">
+        <p class="body en">A monthly series for Singapore's AI builder community — built around the questions that actually matter after you ship. Each episode follows a different phase of the solo founder journey, from your first app to your first revenue, your first expansion, and beyond.</p>
+        <p class="body zh">一个为新加坡 AI 创造者社区打造的月度系列活动——围绕产品发布后真正重要的问题展开。每一期聚焦独立创业旅程的不同阶段，从第一款应用到第一笔收入、第一次扩张，直至更远的未来。</p>
+      </div>
+
+      <div class="an" style="margin-bottom:16px">
+        <p class="body en"><strong>It's not a conference or a networking event dressed up as something useful.</strong> It's an intimate, curated gathering of builders, solopreneurs, and investors designed to generate honest conversations and real connections that keep people coming back. We start at 50 — deliberately small, deliberately curated — because <strong>the right 50 people will do more for ChronoAI's reputation than a diluted room of 500.</strong></p>
+        <p class="body zh"><strong>这不是一场会议，也不是一场伪装成有用活动的社交聚会。</strong>这是一个精心策划的小型聚会，汇集创造者、独立创业者和投资者，旨在产生真实的对话和有价值的连结。我们从 50 人开始——刻意保持小规模、精心筛选——因为<strong>对的 50 人比稀释的 500 人更有价值。</strong></p>
+      </div>
+
+      <div class="an">
+        <div class="stat-row">
+          <div class="stat"><div class="num" style="color:var(--amber)">50</div><div class="lbl en">Curated Seats</div><div class="lbl zh">精选名额</div></div>
+          <div class="stat"><div class="num" style="color:var(--blue)">Monthly</div><div class="lbl en">Recurring</div><div class="lbl zh">每月举办</div></div>
+          <div class="stat"><div class="num" style="color:var(--green)">Free</div><div class="lbl en">Always</div><div class="lbl zh">永久免费</div></div>
+          <div class="stat"><div class="num" style="color:var(--violet)">3</div><div class="lbl en">Spaces per Event</div><div class="lbl zh">每场三个空间</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div>
+      <div class="an">
+        <div class="vision-card amber" style="margin-bottom:14px">
+          <div class="sec-hd en" style="color:var(--amber)">The Bigger Picture</div>
+          <div class="sec-hd zh" style="color:var(--amber)">更大的蓝图</div>
+          <p class="body en" style="max-width:none">Every edition of What's Next builds ChronoAI's position as the <strong>organising force behind Singapore's AI builder community</strong> — not through claims, but through consistent presence, credibility by association with speakers like Prof Liu Yang and industry practitioners like Hashmeta, and direct access to the exact audience we want to be known by: <strong>early-stage founders, solopreneurs, and investors</strong> who are shaping Singapore's AI landscape.</p>
+          <p class="body zh" style="max-width:none">每一期"What's Next"都在巩固 ChronoAI 作为<strong>新加坡 AI 创造者社区核心推动力</strong>的地位——不是靠自我宣称，而是通过持续的在场、与刘杨教授等学术领袖和 Hashmeta 等行业实践者的信誉联结，直接触达我们最想被认识的受众：<strong>早期创始人、独立创业者和投资者</strong>。</p>
+        </div>
+      </div>
+
+      <div class="an">
+        <div class="vision-card blue">
+          <div class="sec-hd en" style="color:var(--blue)">End Goal: The AI Collective</div>
+          <div class="sec-hd zh" style="color:var(--blue)">终极目标：AI Collective</div>
+          <p class="body en" style="max-width:none">This series is the foundation for a broader <strong>AI Collective</strong> — a community platform that brings ChronoAI's network of companies and partners together in a way that creates <strong>commercial opportunity, talent pipelines, and long-term brand equity</strong> that no ad spend can replicate.</p>
+          <p class="body zh" style="max-width:none">这个系列是更广阔的 <strong>AI Collective</strong> 的基石——一个社区平台，将 ChronoAI 的公司和合作伙伴网络汇聚在一起，创造<strong>商业机会、人才通道和长期品牌资产</strong>——这些是任何广告投入都无法复制的。</p>
+        </div>
+      </div>
+
+      <div class="an">
+        <div style="margin-top:14px">
+          <div class="sec-hd en" style="color:var(--sub)">Series Roadmap</div>
+          <div class="sec-hd zh" style="color:var(--sub)">系列路线图</div>
+          <div class="ep-list">
+            <div class="ep-item"><span class="ep-num" style="color:var(--amber)">01</span><span class="en"><strong style="color:#fff">You vibe-coded an app.</strong> What's next?</span><span class="zh"><strong style="color:#fff">你用 AI 做了一款应用。</strong>下一步呢？</span></div>
+            <div class="ep-item"><span class="ep-num" style="color:var(--blue)">02</span><span class="en"><strong style="color:#fff">You launched. Pre-revenue.</strong> What's next? (GTM)</span><span class="zh"><strong style="color:#fff">你上线了，还没有收入。</strong>下一步呢？（市场推广）</span></div>
+            <div class="ep-item"><span class="ep-num" style="color:var(--green)">03</span><span class="en"><strong style="color:#fff">You hit healthy MRR.</strong> What's next? (Expansion)</span><span class="zh"><strong style="color:#fff">你达到了稳定的月经常性收入。</strong>下一步呢？（扩张）</span></div>
+            <div class="ep-item"><span class="ep-num" style="color:var(--violet)">04</span><span class="en"><strong style="color:#fff">AI replaced your job.</strong> What's next?</span><span class="zh"><strong style="color:#fff">AI 取代了你的工作。</strong>下一步呢？</span></div>
+            <div class="ep-item"><span class="ep-num" style="color:var(--muted)">05</span><span class="en"><strong style="color:#fff">AI as companion.</strong> What's next?</span><span class="zh"><strong style="color:#fff">AI 成为伙伴。</strong>下一步呢？</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SLIDE 2 · EPISODE 1
+═══════════════════════════════════ -->
+<div class="slide" id="s1">
+  <div class="slide-lbl"><span class="en">02 / 03 · Episode 1</span><span class="zh">02 / 03 · 第一期</span></div>
+
+  <div class="an" style="margin-bottom:14px">
+    <span class="tag en">27 March 2026 · ChronoAI Office · 50 Pax · Free</span>
+    <span class="tag zh">2026年3月27日 · ChronoAI 办公室 · 50人 · 免费</span>
+  </div>
+
+  <div class="an" style="margin-bottom:16px">
+    <h2><span class="en">You Vibe-Coded an App. <span class="grad-a">Now What?</span></span><span class="zh">你用 AI 做了一款应用。<span class="grad-a">然后呢？</span></span></h2>
+  </div>
+
+  <div class="s2-grid">
+    <!-- LEFT: Speakers + Demos + Agenda -->
+    <div class="s2-left">
+      <div class="an">
+        <div class="sec-hd en" style="color:var(--amber)">Opening Talks · Lobby</div>
+        <div class="sec-hd zh" style="color:var(--amber)">开场演讲 · 大厅</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="speaker-card amber-l">
+            <div class="sp-name">Fan Zhou</div>
+            <div class="sp-org en">Opening & Welcome · 5 mins</div>
+            <div class="sp-org zh">开场致辞 · 5 分钟</div>
+            <div class="sp-desc en">Founder and community builder. Sets the tone for the evening and the series.</div>
+            <div class="sp-desc zh">创始人和社区建设者。为当晚和整个系列定调。</div>
+          </div>
+          <div class="speaker-card amber-l">
+            <div class="sp-name">Terrence Ngu</div>
+            <div class="sp-org en">Hashmeta · 10 mins</div>
+            <div class="sp-org zh">Hashmeta · 10 分钟</div>
+            <div class="sp-topic en">"You vibe coded it. Now vibe market it."</div>
+            <div class="sp-topic zh">"你用 AI 做出来了。现在用 AI 推出去。"</div>
+            <div class="sp-desc en">Why traditional marketing fails solo builders, how ChatGPT and Perplexity are now your biggest distribution channel, and practical steps to get discovered.</div>
+            <div class="sp-desc zh">为什么传统营销对独立创造者无效，ChatGPT 和 Perplexity 如何成为你最大的分发渠道，以及实用的推广步骤。</div>
+          </div>
+          <div class="speaker-card blue-l">
+            <div class="sp-name">Prof Liu Yang</div>
+            <div class="sp-org en">NTU · President's Chair · 10 mins</div>
+            <div class="sp-org zh">南洋理工大学 · 校长讲席教授 · 10 分钟</div>
+            <div class="sp-topic en" style="color:var(--blue)">"Anyone can build with AI. But can you trust what you built?"</div>
+            <div class="sp-topic zh" style="color:var(--blue)">"任何人都能用 AI 构建。但你能信任你构建的东西吗？"</div>
+            <div class="sp-desc en">Speed without judgment creates new risks. What it means to build responsibly with AI — and the role of the human builder.</div>
+            <div class="sp-desc zh">没有判断力的速度会带来新风险。用 AI 负责任地构建意味着什么——以及人类创造者的角色。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="an">
+        <div class="sec-hd en" style="color:var(--blue);margin-top:6px">Demos · Lobby</div>
+        <div class="sec-hd zh" style="color:var(--blue);margin-top:6px">产品演示 · 大厅</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="speaker-card violet-l">
+            <div class="sp-name en">ChronoAI — SoulGarden & RiteSet</div>
+            <div class="sp-name zh">ChronoAI — SoulGarden 与 RiteSet</div>
+            <div class="sp-desc en">We go first. Two products we built, from zero to shipped. Full journey: build, deploy, launch, GTM. The wins and the fails.</div>
+            <div class="sp-desc zh">我们先上。两款我们从零构建并发布的产品。完整旅程：构建、部署、上线、推广。成功和失败。</div>
+          </div>
+          <div class="speaker-card violet-l">
+            <div class="sp-name en">3 Community Builders</div>
+            <div class="sp-name zh">3 位社区创造者</div>
+            <div class="sp-desc en">Curated external demos. Real products, real progress. 10 mins each + Q&A. Builders apply through a pre-vetted submission.</div>
+            <div class="sp-desc zh">精选外部演示。真实的产品，真实的进展。每人 10 分钟 + 问答。创造者通过预审提交申请。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Breakout Spaces + Agenda -->
+    <div>
+      <div class="an">
+        <div class="sec-hd en" style="color:var(--violet)">Breakout Spaces · 6:45pm</div>
+        <div class="sec-hd zh" style="color:var(--violet)">分组空间 · 下午6:45</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="space-card amber-t">
+            <div class="space-emoji">🇫🇷</div>
+            <div class="space-name en">Learn</div><div class="space-name zh">学习</div>
+            <div class="space-room en">Paris Room</div><div class="space-room zh">巴黎厅</div>
+            <div class="space-desc en">Industry experts share knowledge in open floor format. Professors, AI marketing leaders, and ecosystem partners in 10-min sessions.</div>
+            <div class="space-desc zh">行业专家以开放式形式分享知识。教授、AI 营销领袖和生态伙伴，每人 10 分钟。</div>
+            <div class="space-tag at en">For anyone who wants to learn</div>
+            <div class="space-tag at zh">想要学习的人</div>
+          </div>
+          <div class="space-card blue-t">
+            <div class="space-emoji">🇦🇪</div>
+            <div class="space-name en">Show</div><div class="space-name zh">展示</div>
+            <div class="space-room en">Dubai Room</div><div class="space-room zh">迪拜厅</div>
+            <div class="space-desc en">Builders showcase what they've shipped. ChronoAI walks through the full build-to-GTM workflow. Additional builders can apply to demo.</div>
+            <div class="space-desc zh">创造者展示他们的作品。ChronoAI 演示从构建到市场推广的完整工作流程。其他创造者可申请演示。</div>
+            <div class="space-tag bt en">For anyone who wants to show</div>
+            <div class="space-tag bt zh">想要展示的人</div>
+          </div>
+          <div class="space-card violet-t">
+            <div class="space-emoji">🗽</div>
+            <div class="space-name en">Show & Ask</div><div class="space-name zh">展示 & 提问</div>
+            <div class="space-room en">New York Room</div><div class="space-room zh">纽约厅</div>
+            <div class="space-desc en">An intimate feedback session. Present your app or idea and receive direct, honest feedback on marketing, design, and product direction.</div>
+            <div class="space-desc zh">一个私密的反馈环节。展示你的应用或想法，获得关于营销、设计和产品方向的直接、真诚的反馈。</div>
+            <div class="space-tag vt en">For anyone who wants feedback</div>
+            <div class="space-tag vt zh">想要反馈的人</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="an" style="margin-top:14px">
+        <div class="sec-hd en" style="color:var(--sub)">Event Flow</div>
+        <div class="sec-hd zh" style="color:var(--sub)">活动流程</div>
+        <div class="agenda-strip">
+          <div class="ag-row"><span class="ag-time">4:30pm</span><span class="ag-what en"><strong>Doors Open</strong></span><span class="ag-what zh"><strong>开门入场</strong></span></div>
+          <div class="ag-row"><span class="ag-time">5:00pm</span><span class="ag-what en"><strong>Opening Talks</strong> — Fan Zhou, Terrence, Prof Liu Yang</span><span class="ag-what zh"><strong>开场演讲</strong> — Fan Zhou, Terrence, 刘杨教授</span></div>
+          <div class="ag-row"><span class="ag-time">5:30pm</span><span class="ag-what en"><strong>ChronoAI Demo</strong> — SoulGarden + RiteSet</span><span class="ag-what zh"><strong>ChronoAI 演示</strong> — SoulGarden + RiteSet</span></div>
+          <div class="ag-row"><span class="ag-time">6:00pm</span><span class="ag-what en"><strong>Community Demos</strong> — 3 curated builders</span><span class="ag-what zh"><strong>社区演示</strong> — 3 位精选创造者</span></div>
+          <div class="ag-row"><span class="ag-time">6:45pm</span><span class="ag-what en"><strong>Breakout Spaces</strong> — Learn · Show · Ask</span><span class="ag-what zh"><strong>分组空间</strong> — 学习 · 展示 · 提问</span></div>
+          <div class="ag-row"><span class="ag-time">7:30pm</span><span class="ag-what en"><strong>Networking</strong></span><span class="ag-what zh"><strong>社交交流</strong></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SLIDE 3 · TIMELINE & ROADMAP
+═══════════════════════════════════ -->
+<div class="slide" id="s2">
+  <div class="slide-lbl"><span class="en">03 / 03 · Timeline & Roadmap</span><span class="zh">03 / 03 · 时间线与路线图</span></div>
+
+  <div class="an" style="margin-bottom:16px">
+    <h2><span class="en">Making It <span class="grad-b">Happen</span></span><span class="zh">让它<span class="grad-b">发生</span></span></h2>
+  </div>
+
+  <div class="s3-grid">
+    <!-- LEFT: Timeline -->
+    <div>
+      <div class="an">
+        <div class="sec-hd en" style="color:var(--amber)">Launch Timeline</div>
+        <div class="sec-hd zh" style="color:var(--amber)">启动时间线</div>
+        <div class="tl">
+          <div class="tl-item done">
+            <div class="tl-dot"></div>
+            <div class="tl-date en">11 Mar · Done</div>
+            <div class="tl-date zh">3月11日 · 已完成</div>
+            <div class="tl-title en">Direction Confirmed</div>
+            <div class="tl-title zh">方向确认</div>
+            <div class="tl-desc en">Concept aligned with organisers, investors, and internal stakeholders. Speaker topics confirmed. Three-space format finalised.</div>
+            <div class="tl-desc zh">与组织者、投资者和内部利益相关者完成方案对齐。演讲主题确认。三空间模式定稿。</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-date en">12 – 13 Mar</div>
+            <div class="tl-date zh">3月12–13日</div>
+            <div class="tl-title en">Event Goes Live</div>
+            <div class="tl-title zh">活动上线</div>
+            <div class="tl-desc en">Lu.ma listing published. Registration opens. Visual assets and event copy finalised.</div>
+            <div class="tl-desc zh">Lu.ma 页面发布。注册开放。视觉素材和活动文案定稿。</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-date en">13 – 25 Mar</div>
+            <div class="tl-date zh">3月13–25日</div>
+            <div class="tl-title en">Outreach & Curation</div>
+            <div class="tl-title zh">推广与筛选</div>
+            <div class="tl-desc en">Active promotion across all channels. Review and approve registrations. Secure external demo builders. Speaker briefing finalised.</div>
+            <div class="tl-desc zh">全渠道积极推广。审核并批准注册申请。确定外部演示创造者。演讲嘉宾简报定稿。</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-date en">27 Mar · 5:00pm</div>
+            <div class="tl-date zh">3月27日 · 下午5:00</div>
+            <div class="tl-title en">Episode 1: Showtime</div>
+            <div class="tl-title zh">第一期：正式开始</div>
+            <div class="tl-desc en">50 curated builders. Three spaces. One question: What's Next?</div>
+            <div class="tl-desc zh">50 位精选创造者。三个空间。一个问题：下一步呢？</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="an" style="margin-top:20px">
+        <div class="sec-hd en" style="color:var(--blue)">Outreach Channels</div>
+        <div class="sec-hd zh" style="color:var(--blue)">推广渠道</div>
+        <div class="channel-grid">
+          <div class="ch-card"><div class="ch-icon">📋</div><div class="ch-name">Lu.ma</div><div class="ch-desc en">Primary listing & registration</div><div class="ch-desc zh">主要活动页面与注册</div></div>
+          <div class="ch-card"><div class="ch-icon">💬</div><div class="ch-name">WhatsApp</div><div class="ch-desc en">AI builder channels & groups</div><div class="ch-desc zh">AI 创造者频道与群组</div></div>
+          <div class="ch-card"><div class="ch-icon">💼</div><div class="ch-name">LinkedIn</div><div class="ch-desc en">Targeted posts & personal outreach</div><div class="ch-desc zh">定向发帖与个人推广</div></div>
+          <div class="ch-card"><div class="ch-icon">🤝</div><div class="ch-name en">Partners</div><div class="ch-name zh">合作伙伴</div><div class="ch-desc en">SGInnovate, e27, NTU, NUS, Hashmeta, AI Apex Asia</div><div class="ch-desc zh">SGInnovate、e27、NTU、NUS、Hashmeta、AI Apex Asia</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Roadmap + Success -->
+    <div>
+      <div class="an">
+        <div class="sec-hd en" style="color:var(--violet)">Series Roadmap</div>
+        <div class="sec-hd zh" style="color:var(--violet)">系列路线图</div>
+        <div class="roadmap-strip">
+          <div class="rm-card" style="border-left:3px solid var(--amber)">
+            <div class="rm-ep">01</div>
+            <div class="rm-title en"><strong style="color:#fff">You vibe-coded an app.</strong> What's next?</div>
+            <div class="rm-title zh"><strong style="color:#fff">你用 AI 做了一款应用。</strong>下一步呢？</div>
+          </div>
+          <div class="rm-card" style="border-left:3px solid var(--blue)">
+            <div class="rm-ep" style="color:var(--blue)">02</div>
+            <div class="rm-title en"><strong style="color:#fff">You launched. Pre-revenue.</strong> Marketing & GTM</div>
+            <div class="rm-title zh"><strong style="color:#fff">你上线了，还没有收入。</strong>市场营销与推广</div>
+          </div>
+          <div class="rm-card" style="border-left:3px solid var(--green)">
+            <div class="rm-ep" style="color:var(--green)">03</div>
+            <div class="rm-title en"><strong style="color:#fff">You hit healthy MRR.</strong> Expansion</div>
+            <div class="rm-title zh"><strong style="color:#fff">你达到了稳定的 MRR。</strong>扩张</div>
+          </div>
+          <div class="rm-card" style="border-left:3px solid var(--violet)">
+            <div class="rm-ep" style="color:var(--violet)">04</div>
+            <div class="rm-title en"><strong style="color:#fff">AI replaced your job.</strong> What's next?</div>
+            <div class="rm-title zh"><strong style="color:#fff">AI 取代了你的工作。</strong>下一步呢？</div>
+          </div>
+          <div class="rm-card" style="border-left:3px solid var(--muted)">
+            <div class="rm-ep" style="color:var(--muted)">05</div>
+            <div class="rm-title en"><strong style="color:#fff">AI as companion.</strong> What's next?</div>
+            <div class="rm-title zh"><strong style="color:#fff">AI 成为伙伴。</strong>下一步呢？</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="an" style="margin-top:18px">
+        <div style="background:linear-gradient(135deg,rgba(245,158,11,.08) 0%,rgba(245,158,11,.02) 100%);border:1px solid rgba(245,158,11,.22);border-radius:13px;padding:18px 20px">
+          <div class="sec-hd en" style="color:var(--amber)">Success Looks Like</div>
+          <div class="sec-hd zh" style="color:var(--amber)">成功的标准</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;gap:8px;font-size:12px;color:var(--muted);line-height:1.5"><span style="color:var(--amber);font-weight:700;flex-shrink:0">→</span><span class="en"><strong style="color:#fff">50 curated attendees</strong> — at least 30 active builders or founders</span><span class="zh"><strong style="color:#fff">50 位精选参与者</strong>——至少 30 位活跃创造者或创始人</span></div>
+            <div style="display:flex;gap:8px;font-size:12px;color:var(--muted);line-height:1.5"><span style="color:var(--amber);font-weight:700;flex-shrink:0">→</span><span class="en"><strong style="color:#fff">Media or content</strong> that references ChronoAI as the host</span><span class="zh"><strong style="color:#fff">媒体或内容</strong>提及 ChronoAI 为主办方</span></div>
+            <div style="display:flex;gap:8px;font-size:12px;color:var(--muted);line-height:1.5"><span style="color:var(--amber);font-weight:700;flex-shrink:0">→</span><span class="en"><strong style="color:#fff">WhatsApp community</strong> that carries conversation beyond the event</span><span class="zh"><strong style="color:#fff">WhatsApp 社区</strong>将对话延续到活动之外</span></div>
+            <div style="display:flex;gap:8px;font-size:12px;color:var(--muted);line-height:1.5"><span style="color:var(--amber);font-weight:700;flex-shrink:0">→</span><span class="en"><strong style="color:#fff">Clear demand signal</strong> for Episode 2 — waitlist, signups, direct requests</span><span class="zh"><strong style="color:#fff">明确的需求信号</strong>用于第二期——候补名单、注册和直接请求</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="an" style="margin-top:14px">
+        <div style="background:linear-gradient(135deg,rgba(56,189,248,.07) 0%,rgba(56,189,248,.02) 100%);border:1px solid rgba(56,189,248,.22);border-radius:13px;padding:18px 20px">
+          <div class="sec-hd en" style="color:var(--blue)">Growth Path</div>
+          <div class="sec-hd zh" style="color:var(--blue)">增长路径</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:4px">
+            <div style="text-align:center"><div style="font-size:24px;font-weight:900;color:var(--amber)">50</div><div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">Ep 1</div></div>
+            <div style="font-size:16px;color:var(--sub)">→</div>
+            <div style="text-align:center"><div style="font-size:24px;font-weight:900;color:var(--blue)">100</div><div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">Ep 2–3</div></div>
+            <div style="font-size:16px;color:var(--sub)">→</div>
+            <div style="text-align:center"><div style="font-size:24px;font-weight:900;color:var(--violet)">200+</div><div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">Beyond</div></div>
+            <div style="font-size:16px;color:var(--sub)">→</div>
+            <div style="text-align:center"><div style="font-size:16px;font-weight:900;color:var(--green)">AI Collective</div><div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">Long Term</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<div class="nav">
+  <button class="nb" id="pb" onclick="go(-1)" disabled>&#8592;</button>
+  <div class="dots" id="dots"></div>
+  <button class="nb" id="xb" onclick="go(1)">&#8594;</button>
+</div>
+
+<script>
+const N=3;let c=0;
+const el=document.getElementById('dots');
+for(let i=0;i<N;i++){const d=document.createElement('div');d.className='dot'+(i===0?' active':'');d.onclick=()=>goTo(i);el.appendChild(d)}
+function goTo(n){if(n<0||n>=N||n===c)return;const sl=document.querySelectorAll('.slide');sl[c].classList.remove('active');sl[c].classList.add('exit');setTimeout(()=>sl[c].classList.remove('exit'),420);sl[n].style.transform=n>c?'translateX(24px)':'translateX(-24px)';sl[n].classList.add('active');requestAnimationFrame(()=>requestAnimationFrame(()=>{sl[n].style.transform=''}));c=n;ui()}
+function go(d){goTo(c+d)}
+function ui(){document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===c));document.getElementById('pb').disabled=c===0;document.getElementById('xb').disabled=c===N-1;document.getElementById('prog').style.width=((c+1)/N*100)+'%'}
+function setLang(l){document.body.classList.toggle('zh',l==='zh');document.getElementById('btn-en').classList.toggle('active',l==='en');document.getElementById('btn-zh').classList.toggle('active',l==='zh')}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(1)}if(e.key==='ArrowLeft'){e.preventDefault();go(-1)}});
+let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX});document.addEventListener('touchend',e=>{if(Math.abs(e.changedTouches[0].clientX-tx)>50)go(e.changedTouches[0].clientX<tx?1:-1)});
+ui();
+</script>
+</body>
+</html>
