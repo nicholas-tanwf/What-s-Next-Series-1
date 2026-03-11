@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>CEO Debrief — What's Next Series</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#050508;
+  --surface:rgba(255,255,255,.025);
+  --surface2:rgba(255,255,255,.04);
+  --bd:rgba(255,255,255,.06);
+  --gold:#D4A853;
+  --gold2:#E8C677;
+  --golddim:rgba(212,168,83,.08);
+  --goldbrd:rgba(212,168,83,.18);
+  --white:#FAFAFA;
+  --muted:#8B8B9E;
+  --sub:#3F3F50;
+  --green:#4ADE80;
+  --blue:#60A5FA;
+}
+html,body{height:100%;width:100%;background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;overflow:hidden}
+
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 800px 500px at 50% 0%,rgba(212,168,83,.03) 0%,transparent 65%)}
+
+.progress{position:fixed;top:0;left:0;height:1.5px;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .4s ease;z-index:200}
+
+.deck{width:100vw;height:100vh;position:relative;z-index:1}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:56px 80px 72px;opacity:0;pointer-events:none;transition:opacity .45s ease,transform .45s ease;transform:translateX(20px);overflow-y:auto}
+.slide.active{opacity:1;pointer-events:all;transform:translateX(0)}
+.slide.exit{opacity:0;transform:translateX(-20px)}
+.slide.active .an{animation:up .5s ease forwards;opacity:0}
+.slide.active .an:nth-child(1){animation-delay:.04s}
+.slide.active .an:nth-child(2){animation-delay:.10s}
+.slide.active .an:nth-child(3){animation-delay:.16s}
+.slide.active .an:nth-child(4){animation-delay:.22s}
+.slide.active .an:nth-child(5){animation-delay:.28s}
+.slide.active .an:nth-child(6){animation-delay:.34s}
+.slide.active .an:nth-child(7){animation-delay:.40s}
+.slide.active .an:nth-child(8){animation-delay:.46s}
+@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.sl{position:absolute;top:24px;left:80px;font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--sub)}
+
+h1{font-size:clamp(40px,4.5vw,60px);font-weight:900;line-height:.96;letter-spacing:-.04em}
+h2{font-size:clamp(22px,2.8vw,32px);font-weight:800;line-height:1.05;letter-spacing:-.025em}
+.gold{color:var(--gold)}
+.grad{background:linear-gradient(90deg,#D4A853,#E8C677);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+.label{display:inline-flex;padding:3px 10px;border-radius:100px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--golddim);color:var(--gold);border:1px solid var(--goldbrd)}
+.sh{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--sub);margin-bottom:8px}
+.sh.gold{color:var(--gold)}
+.sh.blue{color:var(--blue)}
+.sh.green{color:var(--green)}
+.body{font-size:13px;color:var(--muted);line-height:1.72;max-width:480px}
+.body strong{color:var(--white);font-weight:600}
+.divider{width:100%;height:1px;background:var(--bd);margin:12px 0}
+
+/* LAYOUT */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;width:100%}
+.wide-left{display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:start;width:100%}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--bd);border-radius:12px;padding:18px 20px}
+.card.gold-l{border-left:2px solid var(--gold)}
+.card.gold-t{border-top:2px solid var(--gold);background:linear-gradient(170deg,rgba(212,168,83,.04) 0%,transparent 40%)}
+.card.blue-l{border-left:2px solid var(--blue)}
+.card.green-t{border-top:2px solid var(--green);background:linear-gradient(170deg,rgba(74,222,128,.03) 0%,transparent 40%)}
+
+/* Speakers */
+.spk{display:flex;flex-direction:column;gap:3px}
+.spk-name{font-size:14px;font-weight:800;color:var(--white)}
+.spk-meta{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+.spk-topic{font-size:12px;font-weight:700;color:var(--gold);margin-top:4px}
+.spk-desc{font-size:11px;color:var(--muted);line-height:1.6;margin-top:4px}
+
+/* Spaces */
+.space{display:flex;flex-direction:column;gap:3px}
+.space-room{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--sub)}
+.space-name{font-size:14px;font-weight:800;color:var(--white)}
+.space-desc{font-size:11px;color:var(--muted);line-height:1.55;margin-top:3px}
+.space-for{display:inline-block;margin-top:6px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:100px;background:var(--golddim);color:var(--gold)}
+
+/* Agenda */
+.ag{display:flex;gap:16px;align-items:baseline;font-size:12px;padding:6px 0}
+.ag-t{font-weight:700;color:var(--gold);flex-shrink:0;width:70px;text-align:right;font-size:11px}
+.ag-w{color:var(--muted);line-height:1.4}
+.ag-w strong{color:var(--white);font-weight:600}
+
+/* Timeline */
+.tl{position:relative;padding-left:22px}
+.tl::before{content:'';position:absolute;left:5px;top:3px;bottom:3px;width:1.5px;background:linear-gradient(180deg,var(--gold),var(--blue));border-radius:2px}
+.tl-i{position:relative;margin-bottom:16px}
+.tl-i:last-child{margin-bottom:0}
+.tl-d{position:absolute;left:-22px;top:3px;width:12px;height:12px;border-radius:50%;border:2px solid var(--gold);background:var(--bg)}
+.tl-i.done .tl-d{background:var(--gold)}
+.tl-i:nth-child(3) .tl-d,.tl-i:nth-child(4) .tl-d{border-color:var(--blue)}
+.tl-date{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:2px}
+.tl-i:nth-child(3) .tl-date,.tl-i:nth-child(4) .tl-date{color:var(--blue)}
+.tl-title{font-size:12px;font-weight:700;color:var(--white);margin-bottom:2px}
+.tl-desc{font-size:11px;color:var(--muted);line-height:1.5}
+
+/* Ownership */
+.own-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.own{background:var(--surface);border:1px solid var(--bd);border-radius:10px;padding:14px 16px}
+.own-who{font-size:12px;font-weight:800;color:var(--white);margin-bottom:6px}
+.own-list{list-style:none;display:flex;flex-direction:column;gap:4px}
+.own-list li{font-size:11px;color:var(--muted);line-height:1.45;display:flex;gap:7px}
+.own-list li::before{content:'·';color:var(--gold);font-weight:900;flex-shrink:0}
+
+/* Roadmap */
+.rm{display:flex;flex-direction:column;gap:7px}
+.rm-row{display:flex;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--bd);border-radius:9px;padding:9px 14px}
+.rm-n{font-size:10px;font-weight:900;color:var(--gold);flex-shrink:0;width:18px}
+.rm-txt{font-size:11px;color:var(--muted);line-height:1.4}
+.rm-txt strong{color:var(--white);font-weight:700}
+
+/* Growth */
+.growth{display:flex;align-items:center;gap:14px;margin-top:6px}
+.g-step{text-align:center}
+.g-num{font-size:22px;font-weight:900}
+.g-lbl{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.g-arr{font-size:14px;color:var(--sub)}
+
+/* Key stakeholders */
+.ks-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.ks{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:100px;font-size:11px;font-weight:600;background:var(--surface2);border:1px solid var(--bd);color:var(--muted)}
+.ks .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+/* Nav */
+.nav{position:fixed;bottom:20px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:18px;z-index:100}
+.nb{width:32px;height:32px;border-radius:50%;border:1px solid var(--bd);background:var(--surface2);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:12px}
+.nb:hover{border-color:var(--gold);color:var(--gold)}
+.nb:disabled{opacity:.15;cursor:default}
+.dots{display:flex;gap:6px;align-items:center}
+.dot-n{width:4px;height:4px;border-radius:50%;background:var(--sub);transition:all .25s;cursor:pointer}
+.dot-n.active{width:18px;border-radius:3px;background:var(--gold)}
+
+/* Watermark */
+.watermark{position:fixed;bottom:20px;right:28px;font-size:8px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--sub);z-index:50}
+
+@media(max-width:900px){
+  .slide{padding:50px 20px 64px;justify-content:flex-start}
+  .sl{left:20px}
+  .two-col,.wide-left{grid-template-columns:1fr;gap:20px}
+  .own-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+<div class="watermark">Confidential · ChronoAI</div>
+
+<div class="deck">
+
+<!-- ═══════════════════════════════════════
+     SLIDE 1 · EXECUTIVE SUMMARY
+═══════════════════════════════════════ -->
+<div class="slide active" id="s0">
+  <div class="sl">01 / 03 · Executive Summary</div>
+
+  <div class="wide-left">
+    <div>
+      <div class="an" style="margin-bottom:10px">
+        <span class="label">CEO Debrief · March 2026</span>
+      </div>
+
+      <div class="an" style="margin-bottom:18px">
+        <h1>"What's<br/><span class="grad">Next?"</span></h1>
+      </div>
+
+      <div class="an" style="margin-bottom:16px">
+        <p class="body"><strong>Direction confirmed.</strong> We connected with Ann and LF along with his team. They love the concept and we are moving forward together. The series is called "What's Next" — a recurring monthly event, each episode focused on a different phase of building and founding a one-person company.</p>
+      </div>
+
+      <div class="an" style="margin-bottom:16px">
+        <p class="body"><strong>The bigger goal:</strong> This series is the foundation for establishing an <strong>AI Collective</strong> — bringing all our companies together to build an AI accelerator community. Every edition builds ChronoAI's position as the organising force behind Singapore's AI builder ecosystem.</p>
+      </div>
+
+      <div class="an" style="margin-bottom:16px">
+        <div class="sh gold">Key Stakeholders</div>
+        <div class="ks-row">
+          <span class="ks"><span class="dot" style="background:var(--gold)"></span>Ann — Investor enabler</span>
+          <span class="ks"><span class="dot" style="background:var(--gold)"></span>LF — Logistics, speakers, org</span>
+          <span class="ks"><span class="dot" style="background:var(--blue)"></span>Terrence Ngu — Hashmeta</span>
+          <span class="ks"><span class="dot" style="background:var(--blue)"></span>Prof Liu Yang — NTU</span>
+        </div>
+      </div>
+
+      <div class="an">
+        <div class="sh">Episode 1 at a Glance</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+          <div class="card" style="text-align:center;padding:14px 10px"><div style="font-size:24px;font-weight:900;color:var(--gold)">27</div><div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:2px">March</div></div>
+          <div class="card" style="text-align:center;padding:14px 10px"><div style="font-size:24px;font-weight:900;color:var(--gold)">50</div><div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:2px">Curated Pax</div></div>
+          <div class="card" style="text-align:center;padding:14px 10px"><div style="font-size:24px;font-weight:900;color:var(--green)">Free</div><div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:2px">Always</div></div>
+          <div class="card" style="text-align:center;padding:14px 10px"><div style="font-size:24px;font-weight:900;color:var(--blue)">3</div><div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:2px">Spaces</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div>
+      <div class="an">
+        <div class="card gold-t" style="margin-bottom:14px">
+          <div class="sh gold">Series Roadmap</div>
+          <div class="rm">
+            <div class="rm-row" style="border-left:2px solid var(--gold)"><div class="rm-n">01</div><div class="rm-txt"><strong>You vibe-coded an app.</strong> What's next?</div></div>
+            <div class="rm-row"><div class="rm-n" style="color:var(--muted)">02</div><div class="rm-txt"><strong>You launched. Pre-revenue.</strong> Marketing & GTM</div></div>
+            <div class="rm-row"><div class="rm-n" style="color:var(--muted)">03</div><div class="rm-txt"><strong>You hit healthy MRR.</strong> Expansion</div></div>
+            <div class="rm-row"><div class="rm-n" style="color:var(--muted)">04</div><div class="rm-txt"><strong>AI replaced your job.</strong> What's next?</div></div>
+            <div class="rm-row"><div class="rm-n" style="color:var(--muted)">05</div><div class="rm-txt"><strong>AI as companion.</strong> What's next?</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="an">
+        <div class="card green-t">
+          <div class="sh green">Growth Path</div>
+          <div class="growth">
+            <div class="g-step"><div class="g-num" style="color:var(--gold)">50</div><div class="g-lbl">Episode 1</div></div>
+            <div class="g-arr">→</div>
+            <div class="g-step"><div class="g-num" style="color:var(--blue)">100</div><div class="g-lbl">Ep 2–3</div></div>
+            <div class="g-arr">→</div>
+            <div class="g-step"><div class="g-num" style="color:var(--green)">200+</div><div class="g-lbl">Beyond</div></div>
+            <div class="g-arr">→</div>
+            <div class="g-step"><div class="g-num" style="color:var(--gold);font-size:14px">Collective</div><div class="g-lbl">Long Term</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 2 · PROGRAMMING
+═══════════════════════════════════════ -->
+<div class="slide" id="s1">
+  <div class="sl">02 / 03 · Episode 1 Programming</div>
+
+  <div class="an" style="margin-bottom:4px">
+    <span class="label">27 March 2026 · 5:00pm–8:30pm · ChronoAI Office</span>
+  </div>
+  <div class="an" style="margin-bottom:16px">
+    <h2>You Vibe-Coded an App. <span class="grad">Now What?</span></h2>
+  </div>
+
+  <div class="two-col">
+    <!-- LEFT: Speakers + Demos -->
+    <div>
+      <div class="an">
+        <div class="sh gold">Opening Talks · Lobby · 5:00pm</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="card gold-l">
+            <div class="spk">
+              <div class="spk-name">Fan Zhou</div>
+              <div class="spk-meta">Opening & Welcome · 5 mins</div>
+              <div class="spk-desc">Founder and community builder. Sets the tone for the evening and the series ahead.</div>
+            </div>
+          </div>
+          <div class="card gold-l">
+            <div class="spk">
+              <div class="spk-name">Terrence Ngu</div>
+              <div class="spk-meta">Hashmeta · 10 mins</div>
+              <div class="spk-topic">"You vibe coded it. Now vibe market it."</div>
+              <div class="spk-desc">Why traditional marketing fails solo builders, how ChatGPT and Perplexity are now the biggest distribution channels, and practical steps to get discovered without a budget.</div>
+            </div>
+          </div>
+          <div class="card blue-l">
+            <div class="spk">
+              <div class="spk-name">Prof Liu Yang</div>
+              <div class="spk-meta">NTU · President's Chair in CS · 10 mins</div>
+              <div class="spk-topic" style="color:var(--blue)">"Anyone can build with AI. But can you trust what you built?"</div>
+              <div class="spk-desc">Speed without judgment creates new risks. What it means to build responsibly — and the role of the human builder in the age of AI.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="an" style="margin-top:14px">
+        <div class="sh">Demos · Lobby · 5:30pm</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="card">
+            <div class="spk">
+              <div class="spk-name">ChronoAI — SoulGarden & RiteSet</div>
+              <div class="spk-meta">10 mins each + 5 min Q&A</div>
+              <div class="spk-desc">Two products we built, from zero to shipped. Full journey: build, deploy, launch, GTM. Our workflow shared by the team.</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="spk">
+              <div class="spk-name">3 Community Builders</div>
+              <div class="spk-meta">10 mins each + 5 min Q&A</div>
+              <div class="spk-desc">Curated external demos. Pre-vetted submissions. Real products, real progress, real stage time.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Spaces + Agenda -->
+    <div>
+      <div class="an">
+        <div class="sh gold">Breakout Spaces · 6:45pm</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="card gold-t" style="border-top-width:1.5px">
+            <div class="space">
+              <div class="space-room">Paris Room</div>
+              <div class="space-name">Learn</div>
+              <div class="space-desc">Industry experts share knowledge in open floor format, 10 minutes each. Professors, AI marketing leaders, Hashmeta, and AI Apex Asia via LF's network.</div>
+              <div class="space-for">For anyone who wants to learn</div>
+            </div>
+          </div>
+          <div class="card" style="border-top:1.5px solid var(--blue);background:linear-gradient(170deg,rgba(96,165,250,.03) 0%,transparent 40%)">
+            <div class="space">
+              <div class="space-room">Dubai Room</div>
+              <div class="space-name">Show</div>
+              <div class="space-desc">Builders showcase what they've shipped. ChronoAI walks through the full build-to-GTM workflow. Additional builders can apply to demo.</div>
+              <div class="space-for" style="background:rgba(96,165,250,.08);color:var(--blue)">For anyone who wants to show</div>
+            </div>
+          </div>
+          <div class="card" style="border-top:1.5px solid #A78BFA;background:linear-gradient(170deg,rgba(167,139,250,.03) 0%,transparent 40%)">
+            <div class="space">
+              <div class="space-room">New York Room</div>
+              <div class="space-name">Show & Ask</div>
+              <div class="space-desc">Intimate feedback session. Present your app or idea and receive direct feedback from LF, marketing, and design leads.</div>
+              <div class="space-for" style="background:rgba(167,139,250,.08);color:#A78BFA">For anyone who wants feedback</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="an" style="margin-top:14px">
+        <div class="sh">Event Flow</div>
+        <div style="display:flex;flex-direction:column">
+          <div class="ag"><span class="ag-t">4:30pm</span><span class="ag-w"><strong>Doors Open</strong></span></div>
+          <div class="ag"><span class="ag-t">5:00pm</span><span class="ag-w"><strong>Opening Talks</strong> — Fan Zhou, Terrence, Prof Liu Yang</span></div>
+          <div class="ag"><span class="ag-t">5:30pm</span><span class="ag-w"><strong>ChronoAI Demo</strong> — SoulGarden + RiteSet</span></div>
+          <div class="ag"><span class="ag-t">6:00pm</span><span class="ag-w"><strong>Community Demos</strong> — 3 curated builders</span></div>
+          <div class="ag"><span class="ag-t">6:45pm</span><span class="ag-w"><strong>Breakout Spaces</strong> + <strong>Networking</strong></span></div>
+          <div class="ag"><span class="ag-t">8:30pm</span><span class="ag-w"><strong>Close</strong></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SLIDE 3 · TIMELINE & OWNERSHIP
+═══════════════════════════════════════ -->
+<div class="slide" id="s2">
+  <div class="sl">03 / 03 · Ownership & Timeline</div>
+
+  <div class="an" style="margin-bottom:16px">
+    <h2>Making It <span class="grad">Happen</span></h2>
+  </div>
+
+  <div class="two-col">
+    <!-- LEFT -->
+    <div>
+      <div class="an">
+        <div class="sh gold">Division of Responsibilities</div>
+        <div class="own-grid">
+          <div class="own" style="border-top:2px solid var(--gold)">
+            <div class="own-who">Our Team</div>
+            <ul class="own-list">
+              <li>Concept, theme & narrative</li>
+              <li>Design & visual identity</li>
+              <li>Lu.ma listing & publishing</li>
+              <li>Personal invitations & curation</li>
+              <li>ChronoAI product demos</li>
+              <li>Community outreach (WhatsApp, LinkedIn)</li>
+            </ul>
+          </div>
+          <div class="own" style="border-top:2px solid var(--blue)">
+            <div class="own-who">LF & Ann's Team</div>
+            <ul class="own-list">
+              <li>Logistics & organisation</li>
+              <li>Venue decor & setup</li>
+              <li>Guest speaker outreach & briefing</li>
+              <li>Investor network activation</li>
+              <li>On-site coordination</li>
+            </ul>
+          </div>
+        </div>
+        <div style="margin-top:10px;font-size:11px;color:var(--muted);line-height:1.5">
+          <strong style="color:var(--white)">Coordination:</strong> Shared WhatsApp project group is already active with key people from both sides.
+        </div>
+      </div>
+
+      <div class="an" style="margin-top:20px">
+        <div class="sh">Target Audience</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <span class="ks"><span class="dot" style="background:var(--gold)"></span>Young solopreneurs</span>
+          <span class="ks"><span class="dot" style="background:var(--gold)"></span>Aspiring founders</span>
+          <span class="ks"><span class="dot" style="background:var(--blue)"></span>AI builders & vibe coders</span>
+          <span class="ks"><span class="dot" style="background:var(--blue)"></span>Students in AI/CS</span>
+          <span class="ks"><span class="dot" style="background:var(--green)"></span>Active practitioners</span>
+        </div>
+        <p style="font-size:11px;color:var(--muted);line-height:1.55;margin-top:8px">
+          <strong style="color:var(--white)">Quality over quantity.</strong> First edition is intentionally intimate and curated. Ann and LF are aligned that the right 50 people matter more than size at this stage. Registration is approval-based — every applicant is reviewed.
+        </p>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div>
+      <div class="an">
+        <div class="sh gold">Launch Timeline</div>
+        <div class="tl">
+          <div class="tl-i done">
+            <div class="tl-d"></div>
+            <div class="tl-date">11 Mar · Complete</div>
+            <div class="tl-title">Direction Confirmed</div>
+            <div class="tl-desc">Concept aligned with Ann, LF, and internal stakeholders. Speaker topics and three-space format finalised.</div>
+          </div>
+          <div class="tl-i">
+            <div class="tl-d"></div>
+            <div class="tl-date">12 Mar</div>
+            <div class="tl-title">Event Description Finalised</div>
+            <div class="tl-desc">Lu.ma copy, visual assets, and registration form complete.</div>
+          </div>
+          <div class="tl-i">
+            <div class="tl-d"></div>
+            <div class="tl-date">14 Mar</div>
+            <div class="tl-title">Event Goes Live</div>
+            <div class="tl-desc">Lu.ma listing published. Active outreach begins across all channels — WhatsApp AI groups, LinkedIn, partner networks.</div>
+          </div>
+          <div class="tl-i">
+            <div class="tl-d"></div>
+            <div class="tl-date">27 Mar · 5:00pm</div>
+            <div class="tl-title">Episode 1: Showtime</div>
+            <div class="tl-desc">50 curated builders. Three spaces. One question: What's Next?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="an" style="margin-top:18px">
+        <div class="card gold-t">
+          <div class="sh gold">What Success Looks Like</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;gap:8px;font-size:12px;color:var(--muted);line-height:1.5"><span style="color:var(--gold);font-weight:700;flex-shrink:0">→</span><strong style="color:var(--white)">50 curated attendees</strong> — at least 30 active builders or founders</div>
+            <div style="display:flex;gap:8px;font-size:12px;color:var(--muted);line-height:1.5"><span style="color:var(--gold);font-weight:700;flex-shrink:0">→</span><strong style="color:var(--white)">Media or content</strong> that references ChronoAI as the host</div>
+            <div style="display:flex;gap:8px;font-size:12px;color:var(--muted);line-height:1.5"><span style="color:var(--gold);font-weight:700;flex-shrink:0">→</span><strong style="color:var(--white)">WhatsApp community</strong> that carries conversation beyond the event</div>
+            <div style="display:flex;gap:8px;font-size:12px;color:var(--muted);line-height:1.5"><span style="color:var(--gold);font-weight:700;flex-shrink:0">→</span><strong style="color:var(--white)">Clear demand signal</strong> for Episode 2 — waitlist, signups, direct requests</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<div class="nav">
+  <button class="nb" id="pb" onclick="go(-1)" disabled>&#8592;</button>
+  <div class="dots" id="dots"></div>
+  <button class="nb" id="xb" onclick="go(1)">&#8594;</button>
+</div>
+
+<script>
+const N=3;let c=0;
+const el=document.getElementById('dots');
+for(let i=0;i<N;i++){const d=document.createElement('div');d.className='dot-n'+(i===0?' active':'');d.onclick=()=>goTo(i);el.appendChild(d)}
+function goTo(n){if(n<0||n>=N||n===c)return;const sl=document.querySelectorAll('.slide');sl[c].classList.remove('active');sl[c].classList.add('exit');setTimeout(()=>sl[c].classList.remove('exit'),450);sl[n].style.transform=n>c?'translateX(20px)':'translateX(-20px)';sl[n].classList.add('active');requestAnimationFrame(()=>requestAnimationFrame(()=>{sl[n].style.transform=''}));c=n;ui()}
+function go(d){goTo(c+d)}
+function ui(){document.querySelectorAll('.dot-n').forEach((d,i)=>d.classList.toggle('active',i===c));document.getElementById('pb').disabled=c===0;document.getElementById('xb').disabled=c===N-1;document.getElementById('prog').style.width=((c+1)/N*100)+'%'}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(1)}if(e.key==='ArrowLeft'){e.preventDefault();go(-1)}});
+let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX});document.addEventListener('touchend',e=>{if(Math.abs(e.changedTouches[0].clientX-tx)>50)go(e.changedTouches[0].clientX<tx?1:-1)});
+ui();
+</script>
+</body>
+</html>
