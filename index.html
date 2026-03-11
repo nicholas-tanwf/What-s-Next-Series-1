@@ -93,51 +93,92 @@ body{font-family:'Inter',-apple-system,sans-serif;-webkit-font-smoothing:antiali
 <!-- ═══ SLIDE 1: THE VISION ═══════════════════════════════════════════ -->
 <div class="slide active">
   <div class="eyebrow">ChronoAI Presents · Singapore's AI Builder Community</div>
-  <div class="title">What's Next?</div>
-  <p class="subtitle">A monthly series built around the questions every builder asks after they ship — and nobody's created the right room to answer them. Until now.</p>
+  <div class="title" style="font-size:clamp(42px,5.5vw,72px);margin-bottom:6px">What's Next?</div>
+  <p class="subtitle" style="font-size:15px;margin-bottom:14px">A monthly series for Singapore's builders — focused on the phase nobody talks about: <strong style="color:#fff">after you ship.</strong></p>
 
-  <div class="vision-grid">
+  <!-- STAT BAR -->
+  <div style="display:flex;gap:0;max-width:1060px;width:100%;margin-bottom:14px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.08)">
+    <div style="flex:1;padding:12px 18px;background:rgba(255,138,60,.07);border-right:1px solid rgba(255,255,255,.06);text-align:center">
+      <div style="font-size:26px;font-weight:900;color:var(--orange);line-height:1">50</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:3px">Curated attendees per event</div>
+    </div>
+    <div style="flex:1;padding:12px 18px;background:rgba(184,255,87,.05);border-right:1px solid rgba(255,255,255,.06);text-align:center">
+      <div style="font-size:26px;font-weight:900;color:var(--lime);line-height:1">Monthly</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:3px">Recurring calendar fixture</div>
+    </div>
+    <div style="flex:1;padding:12px 18px;background:rgba(100,210,255,.05);border-right:1px solid rgba(255,255,255,.06);text-align:center">
+      <div style="font-size:26px;font-weight:900;color:var(--cyan);line-height:1">Free</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:3px">Low barrier, high signal</div>
+    </div>
+    <div style="flex:1;padding:12px 18px;background:rgba(191,90,242,.05);text-align:center">
+      <div style="font-size:26px;font-weight:900;color:var(--purple);line-height:1">5</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:3px">Episodes planned this year</div>
+    </div>
+  </div>
 
-    <div class="vcard hero" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center">
-      <div>
-        <div class="vcard-tag" style="color:var(--orange)">The Series</div>
-        <div class="vcard-title" style="font-size:18px">Intimate. Curated. Built for builders who've shipped something and don't know what comes next.</div>
-        <div class="vcard-body" style="margin-top:8px">Not a conference. Not a networking event dressed up as something useful. A <strong>monthly gathering of 50 builders, solopreneurs, and investors</strong> — each episode following a different phase of the solo founder journey.</div>
+  <!-- 3-COLUMN NARRATIVE: What → Who → Where it leads -->
+  <div style="display:grid;grid-template-columns:1fr 44px 1fr 44px 1fr;gap:0;width:100%;max-width:1060px;align-items:start;margin-bottom:14px">
+
+    <!-- WHAT IT IS -->
+    <div style="background:rgba(255,138,60,.05);border:1px solid rgba(255,138,60,.2);border-radius:14px;padding:18px 18px;text-align:left">
+      <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--orange);margin-bottom:8px">① What It Is</div>
+      <div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:8px;line-height:1.3">An intimate evening of honest conversations for builders at every stage.</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:11px;color:rgba(255,255,255,.55);display:flex;gap:8px;align-items:flex-start"><span>🎓</span><span><strong style="color:rgba(255,255,255,.8)">Learn</strong> — industry experts share what actually works</span></div>
+        <div style="font-size:11px;color:rgba(255,255,255,.55);display:flex;gap:8px;align-items:flex-start"><span>🖥️</span><span><strong style="color:rgba(255,255,255,.8)">Demo</strong> — builders showcase what they shipped</span></div>
+        <div style="font-size:11px;color:rgba(255,255,255,.55);display:flex;gap:8px;align-items:flex-start"><span>💬</span><span><strong style="color:rgba(255,255,255,.8)">Show & Ask</strong> — get direct feedback from practitioners</span></div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 14px">
-          <div style="font-size:22px;font-weight:900;color:var(--orange)">50</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:2px">Deliberately small. The right 50 people outperform a diluted room of 500.</div>
-        </div>
-        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 14px">
-          <div style="font-size:22px;font-weight:900;color:var(--lime)">Monthly</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:2px">Recurring series. People build loyalty to a calendar, not a one-off event.</div>
-        </div>
-        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 14px">
-          <div style="font-size:22px;font-weight:900;color:var(--cyan)">Free</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:2px">Low barrier, high signal room. Quality curated, not gatekept by price.</div>
-        </div>
+      <div style="margin-top:10px;padding:8px 12px;background:rgba(255,255,255,.03);border-radius:8px;font-size:10px;color:rgba(255,255,255,.35);line-height:1.5">Not a conference. Not networking dressed up as something useful. A room where builders actually help each other.</div>
+    </div>
+
+    <!-- ARROW 1 -->
+    <div style="display:flex;align-items:center;justify-content:center;padding-top:50px">
+      <div style="text-align:center">
+        <div style="font-size:20px;color:rgba(255,255,255,.15)">→</div>
+        <div style="font-size:8px;font-weight:700;color:rgba(255,255,255,.15);text-transform:uppercase;letter-spacing:.08em;margin-top:2px">each<br>episode</div>
       </div>
     </div>
 
-    <div class="vcard">
-      <div class="vcard-tag" style="color:var(--lime)">Why ChronoAI Does This</div>
-      <div class="vcard-title">Credibility through consistent presence — not through claims.</div>
-      <div class="vcard-body">Every edition builds ChronoAI's position as the <strong>organising force behind Singapore's AI builder community</strong>. Credibility by association with Prof Liu Yang and practitioners like Hashmeta. Direct access to <strong>early-stage founders, solopreneurs, and investors</strong> shaping Singapore's AI landscape.</div>
+    <!-- WHO IT'S FOR -->
+    <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px 18px;text-align:left">
+      <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--lime);margin-bottom:8px">② Who It's For</div>
+      <div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:10px;line-height:1.3">Follows one phase of the solo founder journey per episode.</div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:10px">
+        <div style="font-size:11px;color:rgba(255,255,255,.6);display:flex;gap:8px"><span style="color:var(--lime)">→</span><span>Vibe coders & solopreneurs</span></div>
+        <div style="font-size:11px;color:rgba(255,255,255,.6);display:flex;gap:8px"><span style="color:var(--lime)">→</span><span>Early-stage founders post-launch</span></div>
+        <div style="font-size:11px;color:rgba(255,255,255,.6);display:flex;gap:8px"><span style="color:var(--lime)">→</span><span>Investors who back solo builders</span></div>
+        <div style="font-size:11px;color:rgba(255,255,255,.6);display:flex;gap:8px"><span style="color:var(--lime)">→</span><span>Practitioners & domain experts</span></div>
+      </div>
+      <div style="padding:8px 12px;background:rgba(184,255,87,.05);border:1px solid rgba(184,255,87,.12);border-radius:8px;font-size:10px;color:rgba(255,255,255,.45);line-height:1.5">Series 1 theme: <strong style="color:var(--lime)">You Vibe-Coded an App.</strong> Build → Launch → GTM. What happens the moment you ship.</div>
     </div>
 
-    <div class="vcard">
-      <div class="vcard-tag" style="color:var(--purple)">The Bigger Picture</div>
-      <div class="vcard-title">What's Next becomes the foundation for an AI Collective.</div>
-      <div class="vcard-body">Over time this series becomes the community platform bringing <strong>all ChronoAI's companies and partners together</strong> — creating commercial opportunity, talent pipelines, and long-term brand equity that no ad spend can replicate.</div>
+    <!-- ARROW 2 -->
+    <div style="display:flex;align-items:center;justify-content:center;padding-top:50px">
+      <div style="text-align:center">
+        <div style="font-size:20px;color:rgba(255,255,255,.15)">→</div>
+        <div style="font-size:8px;font-weight:700;color:rgba(255,255,255,.15);text-transform:uppercase;letter-spacing:.08em;margin-top:2px">builds<br>toward</div>
+      </div>
+    </div>
+
+    <!-- WHERE IT LEADS -->
+    <div style="background:linear-gradient(145deg,rgba(191,90,242,.07),rgba(255,138,60,.05));border:1px solid rgba(191,90,242,.2);border-radius:14px;padding:18px 18px;text-align:left">
+      <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--purple);margin-bottom:8px">③ The Bigger Goal</div>
+      <div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:8px;line-height:1.3">Each event builds ChronoAI's position as Singapore's AI builder hub.</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <div style="font-size:11px;color:rgba(255,255,255,.5);padding:5px 10px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)">What's Next Series</div>
+        <div style="font-size:16px;color:rgba(191,90,242,.5)">→</div>
+        <div style="font-size:11px;font-weight:800;color:var(--purple);padding:5px 10px;border-radius:6px;background:rgba(191,90,242,.1);border:1px solid rgba(191,90,242,.2)">AI Collective</div>
+      </div>
+      <div style="font-size:10px;color:rgba(255,255,255,.4);line-height:1.55">A community platform bringing ChronoAI's network of companies and partners together — commercial opportunity, talent pipelines, and brand equity no ad spend can replicate.</div>
     </div>
 
   </div>
 
+  <!-- BOTTOM BADGE -->
   <div class="series-badge">
     <div style="text-align:left">
-      <div style="font-size:9px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.12em;margin-bottom:2px">Kicking Off</div>
-      <div style="font-size:13px;font-weight:800;color:#fff">Series 1 — You Vibe-Coded an App. What's Next?</div>
+      <div style="font-size:9px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.12em;margin-bottom:2px">Series 1 Kicking Off</div>
+      <div style="font-size:13px;font-weight:800;color:#fff">You Vibe-Coded an App. What's Next?</div>
     </div>
     <div style="width:1px;height:28px;background:rgba(255,138,60,.2)"></div>
     <div style="text-align:left">
